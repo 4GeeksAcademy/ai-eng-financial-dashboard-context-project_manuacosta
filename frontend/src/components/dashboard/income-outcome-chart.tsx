@@ -1,5 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardDescription } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
+import { type CustomTooltipProps } from '@/components/dashboard/chart-tooltip-types'
 import { type MonthlyDataPoint } from '@/lib/financial-types'
 import { formatCurrency } from '@/lib/financial-utils'
 import {
@@ -16,18 +17,6 @@ import {
 interface IncomeOutcomeChartProps {
   data: MonthlyDataPoint[]
   loading?: boolean
-}
-
-interface TooltipPayload {
-  name: string
-  value: number
-  color: string
-}
-
-interface CustomTooltipProps {
-  active?: boolean
-  payload?: TooltipPayload[]
-  label?: string
 }
 
 function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
@@ -66,7 +55,7 @@ export function IncomeOutcomeChart({ data, loading }: IncomeOutcomeChartProps) {
   return (
     <Card className="border-border/60">
       <CardHeader className="pb-4">
-        <CardTitle className="text-base font-semibold">Income vs. Outcome</CardTitle>
+        <h2 className="leading-none text-base font-semibold">Income vs. Outcome</h2>
         <CardDescription>Monthly revenue and expenditure evolution</CardDescription>
       </CardHeader>
       <CardContent>

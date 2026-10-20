@@ -20,3 +20,15 @@
 ## No verificado
 
 - No se ejecutó ni levantó la aplicación como parte de esta documentación; el estado de ejecución actual no está verificado. (no verificado)
+
+## Skills de agentes
+
+- Skills externas instaladas desde skills.sh y registradas en `skills-lock.json`: `accessibility` (`addyosmani/web-quality-skills`), `vercel-react-best-practices` (`vercel-labs/agent-skills`) y `typescript-advanced-types` (`wshobson/agents`). Quedan en `.agents/skills/`.
+- La skill interna `.skills/commit-conventions/SKILL.md` documenta convenciones de commits respaldadas por el historial; ni `memory-bank/` ni `.agents/rules/` definían convenciones de commits.
+- Cambios aplicados y verificados:
+	- `accessibility`, commit `64d5b18`: títulos de gráficas como `h2`, `role="alert"` y `lang="es"` en el mensaje de error, y título de página `Financial Overview`.
+	- `vercel-react-best-practices`, commit `ba4c222`: carga diferida de las dos gráficas con `React.lazy` y `Suspense`, adaptando la regla `bundle-dynamic-imports` de `next/dynamic` a Vite. El build dejó de advertir por chunks mayores de 500 kB (antes, un JS de 584 kB) y los 5 tests pasan.
+	- `typescript-advanced-types`, commit `e158e36`: los tipos duplicados del tooltip de las dos gráficas pasaron a un archivo compartido (`chart-tooltip-types.ts`); cambio solo de tipos.
+- Skill extra elegida: `typescript-advanced-types`. Se comparó con `webapp-testing`. Se eligió porque las tres auditorías de skills.sh (Gen Agent Trust Hub, Socket y Snyk) dieron Pass, no pide instalar ni ejecutar nada y el proyecto usa TypeScript estricto. `webapp-testing` quedó descartada porque requiere Playwright en Python y scripts, Socket y Snyk marcan Warn, y la app no carga datos en este entorno. La skill está pensada para tipos avanzados y en este repo solo hubo un cambio pequeño; no se atribuye al cambio un patrón concreto de la skill.
+- Las reglas `server-*` y las específicas de Next.js de Vercel no aplican porque el frontend es Vite.
+- Falla conocida del entorno, no causada por estos cambios: el proxy de Vite dentro de Docker no alcanza al backend (`connect ETIMEDOUT`); está documentada en `verification.md` (commit `abb49b8`).
